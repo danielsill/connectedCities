@@ -53,6 +53,15 @@ def findPath(connections, start_city, end_city, visited):
 
 
 def connectedCities(n, g, start_cities, end_cities):
+    """
+    Per the problem description, finds a path between each pair of start and end cities
+    assumes len(start_cities) == len(end_cities) == len(return value)
+    :param n: the number of cities in the map
+    :param g: the threshold for factoring
+    :param start_cities: list[int] starting cities
+    :param end_cities: list[int] ending cities
+    :return: a list denoting each end city is reachable from each start city with 1 as true
+    """
     result = []
     connections = [getThresholdFactors(i, g) for i in range(1, n + 1)]
     connections.insert(0, [])  # inserts an entry for zero so list can be treated as 1-indexed for convenience
