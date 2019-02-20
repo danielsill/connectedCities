@@ -22,6 +22,16 @@ def getThresholdFactors(n, threshold):
 print(getThresholdFactors(64, 2))
 
 
+def isConnectedDirectly(start_city, end_city, connections):
+    """
+    :param start_city:
+    :param end_city:
+    :param connections:
+    :return: True if there is a direct connection between start_city and end_city
+    """
+    return end_city in start_city[connections]
+
+
 def findPath(connections, threshold, start_city, end_city, visited ):
     """
     Determines the existance of a path between startCity and EndCity
@@ -34,13 +44,12 @@ def findPath(connections, threshold, start_city, end_city, visited ):
     """
     if threshold <= 1:
         return 1
-    elif end_city in connections[start_city]:
-        return 1
-    elif start_city in connections[end_city]:
+
+    elif isConnectedDirectly(start_city, end_city, connections):
         return 1
     else:
         visited.append(start_city)
-        for i in range(0, len(connections[start_city]) + 1):
+        for i in range(0, len(connections) + 1):
             if i not in visited:
                 return findPath(connections, threshold, i, end_city, visited)
         return 0
