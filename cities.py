@@ -8,16 +8,15 @@ def getThresholdFactors(n, threshold):
     :param threshold: integer, the threshold
     :return: a list of integers that are factors of n, strictly greater than threshold
     """
-    small_factors = []
-    large_factors = []
+    small_factors = set()
+    large_factors = set()
     for i in range(1, math.floor(math.sqrt(n)) + 1):
         if n % i == 0:
             if i > threshold:
-                small_factors.append(i)
+                small_factors.add(i)
             factor_pair = n // i
-            if factor_pair != i:
-                large_factors.append(factor_pair)
-    return small_factors + large_factors[::-1]
+            large_factors.add(factor_pair)
+    return small_factors.union(large_factors)
 
 
 print(getThresholdFactors(64, 2))
