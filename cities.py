@@ -14,10 +14,46 @@ def getThresholdFactors(n, threshold):
         if n % i == 0:
             if i > threshold:
                 small_factors.append(i)
-            factor_pair = n//i
+            factor_pair = n // i
             if factor_pair != i:
                 large_factors.append(factor_pair)
     return small_factors + large_factors[::-1]
 
 
 print(getThresholdFactors(64, 2))
+
+
+def findPath(connections, threshold, start_city, end_city, visited ):
+    """
+    Determines the existance of a path between startCity and EndCity
+    :param connections: the list of connections between individual cities
+    :param threshold: the factoring threshold
+    :param start_city: integer, the city to start
+    :param end_city: integer, the city to end
+    :param visited: list[int], the cities previously visited
+    :return: 1 if a path exists, else 0
+    """
+    if threshold <= 1:
+        return 1
+    elif end_city in connections[start_city]:
+        return 1
+    elif start_city in connections[end_city]:
+        return 1
+    else:
+        visited.append(start_city)
+        for i in range(0, len(connections[start_city]) + 1):
+            if i not in visited:
+                return findPath(connections, threshold, i, end_city, visited)
+        return 0
+
+
+def connectedCities(n, g, start_cities, end_cities):
+    result = []
+    connections = [getThresholdFactors(i, g) for i in range(1, n + 1)]
+    connections.insert(0, [])  # inserts an entry for zero so list can be treated as 1-indexed for convenience
+    print('connections', connections)
+    for i in range(0, len(start_cities)):
+        result.append(findPath(connections, g, start_cities[i], end_cities[i], []))
+    print(result)
+
+connectedCities(27, 2, [7,4,7,7,18], [10,8,14,10,12])
