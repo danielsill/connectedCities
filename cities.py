@@ -10,7 +10,7 @@ def getThresholdFactors(n, threshold):
     """
     small_factors = []
     large_factors = []
-    for i in range(2, math.floor(math.sqrt(n)) + 1):
+    for i in range(1, math.floor(math.sqrt(n)) + 1):
         if n % i == 0:
             if i > threshold:
                 small_factors.append(i)
