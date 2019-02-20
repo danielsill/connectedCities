@@ -29,29 +29,26 @@ def isConnectedDirectly(start_city, end_city, connections):
     :param connections:
     :return: True if there is a direct connection between start_city and end_city
     """
-    return end_city in start_city[connections]
+    intersection = connections[start_city].intersection(connections[end_city])
+    return len(intersection) > 0
 
 
-def findPath(connections, threshold, start_city, end_city, visited ):
+def findPath(connections, start_city, end_city, visited):
     """
     Determines the existance of a path between startCity and EndCity
     :param connections: the list of connections between individual cities
-    :param threshold: the factoring threshold
     :param start_city: integer, the city to start
     :param end_city: integer, the city to end
     :param visited: list[int], the cities previously visited
     :return: 1 if a path exists, else 0
     """
-    if threshold <= 1:
-        return 1
-
-    elif isConnectedDirectly(start_city, end_city, connections):
+    if isConnectedDirectly(start_city, end_city, connections):
         return 1
     else:
         visited.append(start_city)
-        for i in range(0, len(connections) + 1):
+        for i in range(0, len(connections[start_city]) + 1):
             if i not in visited:
-                return findPath(connections, threshold, i, end_city, visited)
+                return findPath(connections, i, end_city, visited)
         return 0
 
 
