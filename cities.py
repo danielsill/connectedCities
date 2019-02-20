@@ -62,12 +62,15 @@ def connectedCities(n, g, start_cities, end_cities):
     :param end_cities: list[int] ending cities
     :return: a list denoting each end city is reachable from each start city with 1 as true
     """
+    if g <= 1:
+        return 1 * len(start_cities)
     result = []
     connections = [getThresholdFactors(i, g) for i in range(1, n + 1)]
-    connections.insert(0, [])  # inserts an entry for zero so list can be treated as 1-indexed for convenience
+    connections.insert(0, set())  # inserts an entry for zero so list can be treated as 1-indexed for convenience
     print('connections', connections)
     for i in range(0, len(start_cities)):
-        result.append(findPath(connections, g, start_cities[i], end_cities[i], []))
+        result.append(findPath(connections, start_cities[i], end_cities[i], []))
     print(result)
+    return result
 
 connectedCities(27, 2, [7,4,7,7,18], [10,8,14,10,12])
