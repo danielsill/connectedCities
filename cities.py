@@ -2,6 +2,12 @@ import math
 
 
 def getThresholdFactors(n, threshold):
+    """
+    Factors a number with a threshold for factor size
+    :param n: integer, the number to be factored
+    :param threshold: integer, the threshold
+    :return: a list of integers that are factors of n, strictly greater than threshold
+    """
     small_factors = []
     large_factors = []
     for i in range(2, math.floor(math.sqrt(n)) + 1):
