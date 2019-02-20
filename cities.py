@@ -73,4 +73,4 @@ def connectedCities(n, g, start_cities, end_cities):
     print(result)
     return result
 
-connectedCities(27, 2, [7,4,7,7,18], [10,8,14,10,12])
+connectedCities(27, 2, [7,4,18,7,7], [10,8,12,10,14])
